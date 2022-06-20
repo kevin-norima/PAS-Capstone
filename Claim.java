@@ -1,5 +1,12 @@
+/**
+ * Java Course 4, Module 3
+ * 
+ * Norima Java Developer Course Capstone Project
+ *
+ * @author Mc Kevin Aranda
+ */
 import java.time.LocalDate;
-import java.sql.*;;
+import java.sql.*;
 
 public class Claim extends PASHelper {
 

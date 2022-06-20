@@ -1,8 +1,14 @@
+/**
+ * Java Course 4, Module 3
+ * 
+ * Norima Java Developer Course Capstone Project
+ *
+ * @author Mc Kevin Aranda
+ */
 import java.time.LocalDate;
 import java.sql.*;
 public class Policy extends PASHelper{
 
-    //private String cancelDate;
     private int accountNumber;
     private LocalDate expiryDate,effectiveDate,cancelDate;
 
@@ -10,9 +16,8 @@ public class Policy extends PASHelper{
     Vehicle v;
 
     public void load(){
-        //System.out.print("Enter account number: ");
        accountNumber = checkNumber("Enter account number: ");
-        if (checkAccountPolicy(accountNumber,"tbl_customersaccount","account_number") == true){
+        if (checkAccountPolicy(accountNumber,"tbl_customersaccount","account_number") == true){ // check if there is a existing data
             System.out.println("\nGet a policy quote and buy the policy.\n");
             effectiveDate = checkDate("Effective Date: ");
             expiryDate = effectiveDate.plusMonths(6);
@@ -32,10 +37,9 @@ public class Policy extends PASHelper{
             displayPolicyDetails(number);
             System.out.println("");
             cancelDate = checkDate("Enter cancellation date: ");
-            if (expiryDate.compareTo(cancelDate)>0 && effectiveDate.compareTo(cancelDate)<0){
+            if (expiryDate.compareTo(cancelDate)>0 && effectiveDate.compareTo(cancelDate)<0){ // accept only date that within the range of effective date and expiry date
                 try {
-                    // Step 2: Construct a 'Statement' object called 'stmt' inside the Connection created
-                    String sql = "UPDATE tbl_policy SET policy_expirydate = ('"+cancelDate+"') WHERE policy_number ='"+number+"'";
+                    String sql = "UPDATE tbl_policy SET policy_expirydate = ('"+cancelDate+"') WHERE policy_number ='"+number+"'"; // update query for updating the existing data in database
                     PreparedStatement stmt = conn.prepareStatement(sql);
                     stmt.execute();
                     clrScreen();

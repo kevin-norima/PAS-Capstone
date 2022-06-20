@@ -1,3 +1,10 @@
+/**
+ * Java Course 4, Module 3
+ * 
+ * Norima Java Developer Course Capstone Project
+ *
+ * @author Mc Kevin Aranda
+ */
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
@@ -44,7 +51,7 @@ public class PASHelper {
                             System.out.print("Enter Selection: ");
                             choice = input.nextInt();
                         } catch (InputMismatchException e) {
-                            System.out.println("Please enter a valid selection (1-8).");  // this is more polite
+                            System.out.println("Please enter a valid selection (1-8).");
                             invalidInput = true;  // This is what will get the program to loop back
                             input.nextLine();
                         }
@@ -107,8 +114,7 @@ public class PASHelper {
     }
 
     public void returnMenu(){
-        //System.out.print("Return to menu? YES - 1 or EXIT - 0: ");
-        int selection = checkNumber("Return to menu? YES - 1 or EXIT - 0: ");
+        int selection = checkNumber("Return to menu? YES - 1 or EXIT - 0: "); //call checkNumber method for validation
         if(selection == 1){
             clrScreen();
             menuScreen();
@@ -144,12 +150,11 @@ public class PASHelper {
 
     public int getPolicyNum(){
         try {
-            // Step 2: Construct a 'Statement' object called 'stmt' inside the Connection created
-            String sql = "SELECT * FROM tbl_policy ORDER BY policy_number DESC LIMIT 1";
+            String sql = "SELECT * FROM tbl_policy ORDER BY policy_number DESC LIMIT 1"; // retrieve the newest record in database
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet resultSet = stmt.executeQuery();
             resultSet.next();
-            int policyNum = resultSet.getInt("policy_number"); // retrieve a 'String'-cell in the row
+            int policyNum = resultSet.getInt("policy_number"); 
             return policyNum;
                 
         } catch (Exception e) {
@@ -161,9 +166,8 @@ public class PASHelper {
     public LocalDate checkDate(String label){
         try {
             System.out.print(label);
-            //String dob = input.nextLine();
-            LocalDate parseDob = LocalDate.parse(input.nextLine());
-            return this.parseDob = parseDob;
+            LocalDate parseDob = LocalDate.parse(input.nextLine()); // accept string and convert to LocalDate to validate the right format
+            return this.parseDob = parseDob; // assigning value to global variable
         } catch (Exception e) {
             System.out.println("Invalid date format (YYYY-MM-DD)");
             checkDate(label);

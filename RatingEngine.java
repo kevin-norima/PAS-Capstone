@@ -1,3 +1,10 @@
+/**
+ * Java Course 4, Module 3
+ * 
+ * Norima Java Developer Course Capstone Project
+ *
+ * @author Mc Kevin Aranda
+ */
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -8,7 +15,7 @@ public class RatingEngine {
 
     public void doDlx(PolicyHolder ph){
         LocalDate today = LocalDate.now();
-        this.dlx = Period.between(ph.getDateissuedlicense(), today).getYears();
+        this.dlx = Period.between(ph.getDateissuedlicense(), today).getYears(); // get exactly the years of date between the Issued license and current date
     }
 
     public void getVehicleAge(int year){

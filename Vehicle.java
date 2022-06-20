@@ -12,7 +12,7 @@ public class Vehicle extends PASHelper {
     Policy p;
     PolicyHolder ph;
 
-    ArrayList <Vehicle> arrVehicle = new ArrayList<Vehicle>();
+    ArrayList <Vehicle> arrVehicle = new ArrayList<Vehicle>(); // hold value for multiple input in vehicle
 
     RatingEngine RatingEngObj;
     
@@ -38,9 +38,7 @@ public class Vehicle extends PASHelper {
         
 
         System.out.println("\nVehicle Details");
-        //System.out.print("How many vehicle?: ");
         int vehicleNum = checkNumber("How many vehicle?: ");
-        //input.nextLine();
         int i = 0;
         do{
             RatingEngObj.doDlx(policyHolder);
@@ -76,10 +74,10 @@ public class Vehicle extends PASHelper {
         clrScreen();
         System.out.println("\nPolicy Details");
         System.out.format( "%-16s %-18s %10s %n", "Account Number","Effective Date","Expiry Date");
-        System.out.format( "%8s %20s %16s %n", p.getAccountNumber(),p.getEffectiveDate(),p.getExpiryDate());
+        System.out.format( "%8s %20s %16s %n", p.getAccountNumber(),p.getEffectiveDate(),p.getExpiryDate()); // display the data inputed in policy class
         System.out.println("");
         System.out.println("Policy Holder Details");
-        System.out.println("Full Name: "+ph.getFname()+" "+ph.getLname());
+        System.out.println("Full Name: "+ph.getFname()+" "+ph.getLname()); // display the data inputed in policyholder class
         System.out.println("Date of Birth: "+ph.getDob());
         System.out.println("Address: "+ph.getAddress());
         System.out.println("Driver's License: "+ph.getDriverlicense());
@@ -88,7 +86,7 @@ public class Vehicle extends PASHelper {
         System.out.println("");
         System.out.format( "%-20s %-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s %n","Vehicle","Make","Model","Year","Type","Fuel-Type","Purchase Price","Color","Premium Charge");
         int vehicleCount=0;
-        for (Vehicle vehicle : arrVehicle) {
+        for (Vehicle vehicle : arrVehicle) { // display the data inputed in vehicle array
             System.out.format( "%-20s %-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s %n", vehicleCount = vehicleCount+1,vehicle.make,vehicle.model,vehicle.year,vehicle.type,vehicle.fuelType,vehicle.purchasePrice,vehicle.color,vehicle.premiumCharge);
         }
         System.out.format( "%-20s %-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s %n","--------------------","---------------","---------------","---------------","---------------","---------------","---------------","TOTAL PREMIUM: ",total);

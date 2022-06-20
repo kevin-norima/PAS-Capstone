@@ -1,8 +1,14 @@
+/**
+ * Java Course 4, Module 3
+ * 
+ * Norima Java Developer Course Capstone Project
+ *
+ * @author Mc Kevin Aranda
+ */
 import java.sql.*;
 public class CustomerAccount extends PASHelper {
 
     private String fname,lname,address;
-    int policyNumArr[];
     Policy pol = new Policy();
 
     public void userPromt(){
@@ -21,12 +27,11 @@ public class CustomerAccount extends PASHelper {
     }
     public void store(){
         try {
-            // Step 2: Construct a 'Statement' object called 'stmt' inside the Connection created
             String sql = "INSERT INTO tbl_CustomersAccount (account_fname, account_lname, account_address) VALUES" 
-            +"('"+fname+"','"+lname+"','"+address+"')";
+            +"('"+fname+"','"+lname+"','"+address+"')"; // insert data inputed by user and store into database
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.execute();
-            int accountNum = getAccountNo();
+            int accountNum = getAccountNo(); // retrieve the newest record in database
             System.out.println("Customer successfully registered\n");
             System.out.println("Generated account number: "+accountNum);
             System.out.println("");
@@ -57,11 +62,21 @@ public class CustomerAccount extends PASHelper {
             String sql = "SELECT * FROM tbl_customersaccount WHERE account_fname ='"+fname+"' AND account_lname ='"+lname+"'";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet resultSet = stmt.executeQuery();
-            resultSet.next();
-            int number = resultSet.getInt("account_number");
-            System.out.println("Account number: "+number);
-            System.out.println("");
-            displayListPolicy(number);
+            if (resultSet.next() == false){
+                System.out.println("Account doesn't exist!");
+            }else{
+                do{
+                int number = resultSet.getInt("account_number");
+                String fname = resultSet.getString("account_fname");
+                String lname = resultSet.getString("account_lname");
+                String address = resultSet.getString("account_address");
+                System.out.println("\nAccount number: "+number);
+                System.out.println("Full Name     : "+fname+" "+lname);
+                System.out.println("Address       : "+address);
+                System.out.println("");
+                displayListPolicy(number);
+                } while (resultSet.next());
+            }
             returnMenu();
         } catch(Exception e) {
             System.out.println("Account doesn't exist!");
@@ -94,7 +109,6 @@ public class CustomerAccount extends PASHelper {
 
     public void displayPolicyHolderDetails(int number){
         try {
-            // Step 2: Construct a 'Statement' object called 'stmt' inside the Connection created
             String sql = "SELECT * FROM tbl_policyholder WHERE account_number ='"+number+"'";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet resultSet = stmt.executeQuery();
@@ -102,7 +116,7 @@ public class CustomerAccount extends PASHelper {
             System.out.println("Policy Holder Details");
             System.out.println("");
             int i = 1;
-            while(resultSet.next()){
+            while(resultSet.next()){ // display list of revtrieve data from the query
                 int policyNum = resultSet.getInt("policy_number");
                 String respolicyHolderFname = resultSet.getString("fname");
                 String respolicyHolderLname = resultSet.getString("lname");

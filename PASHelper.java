@@ -48,8 +48,9 @@ public class PASHelper {
                     do {
                         invalidInput = false;
                         try {
-                            System.out.print("Enter Selection: ");
-                            choice = input.nextInt();
+                            // System.out.print("Enter Selection: ");
+                            // choice = input.nextInt();
+                            choice = checkNumber("Enter Selection: ");
                         } catch (InputMismatchException e) {
                             System.out.println("Please enter a valid selection (1-8).");
                             invalidInput = true;  // This is what will get the program to loop back
@@ -90,6 +91,7 @@ public class PASHelper {
                         break;
                         case 8:
                         System.exit(0);
+                        input.close();
                         break;
                         default:
                         clrScreen();
@@ -125,6 +127,7 @@ public class PASHelper {
         }
         else{
             System.exit(0);
+            input.close();
         }
     }
 

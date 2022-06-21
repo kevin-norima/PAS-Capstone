@@ -50,6 +50,9 @@ public class Vehicle extends PASHelper {
             model = input.nextLine();
                 do {
                     year = checkNumber("Enter Year YYYY: ");
+                    if(year < 1000 || year > 9999){
+                        System.out.println("Enter valid year YYYY");
+                    }
                 } while(year < 1000 || year > 9999);
             System.out.print("Enter Type: ");
             type = input.nextLine();

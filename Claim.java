@@ -19,22 +19,50 @@ public class Claim extends PASHelper {
     public void load(){
         int number = checkNumber("Enter policy number: ");
         if (checkAccountPolicy(number,"tbl_policy","policy_number") == true){
-            System.out.println("\nClaims\n");
-            doa = checkDate("Enter Date of accident: ");
-            System.out.print("Enter Address where accident happened: ");
-            address = input.nextLine();
-            System.out.print("Enter Description of accident: ");
-            desAccident = input.nextLine();
-            System.out.print("Enter Description of damage to vehicle: ");
-            desDamage = input.nextLine();
-            estCost = checkPrice("Enter Estimated cost of repairs: ");
-            store(number);
+            if(checkExpiryDate(number) == true){
+                System.out.println("Policy has been expired");
+                returnMenu();
+            }
+            else{
+                System.out.println("\nClaims\n");
+                doa = checkDate("Enter Date of accident: ");
+                System.out.print("Enter Address where accident happened: ");
+                address = input.nextLine();
+                System.out.print("Enter Description of accident: ");
+                desAccident = input.nextLine();
+                System.out.print("Enter Description of damage to vehicle: ");
+                desDamage = input.nextLine();
+                estCost = checkPrice("Enter Estimated cost of repairs: ");
+                store(number);
+            }
         }
         else{
             System.out.println("Invalid Policy Number");
             returnMenu();
         };
         }
+
+    public boolean checkExpiryDate(int number){
+        try {
+            String sql = "SELECT * FROM tbl_policy WHERE policy_number ='"+number+"'";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet resultSet = stmt.executeQuery();
+            resultSet.next();
+                    String expiry = resultSet.getString("policy_expirydate"); // retrieve a 'String'-cell in the row
+                    LocalDate parseExpiry = LocalDate.parse(expiry);
+                    LocalDate today = LocalDate.now();
+                if (today.isAfter(parseExpiry) || today.isEqual(parseExpiry)){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+                
+        } catch (Exception e) {
+            clrScreen();
+            return false;
+        }
+    }
 
     public void store(int number){
         try {

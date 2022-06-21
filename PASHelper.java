@@ -119,6 +119,10 @@ public class PASHelper {
             clrScreen();
             menuScreen();
         }
+        else if (selection > 1){
+            System.out.println("Please enter 1 or 0 only");
+            returnMenu();
+        }
         else{
             System.exit(0);
         }
@@ -191,7 +195,8 @@ public class PASHelper {
         try {
             System.out.print(label);
             double num = Double.parseDouble(input.nextLine());
-            return this.deci = num;
+            double abs = Math.abs(num);
+            return this.deci = abs;
         } catch (Exception e) {
             System.out.println("Enter Valid Value!");
             checkPrice(label);

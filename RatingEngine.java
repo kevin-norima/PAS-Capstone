@@ -50,7 +50,12 @@ public class RatingEngine {
     }
 
     public double calculatePremium(){
-        return ((vp * vpf) + ((vp/100)/dlx));
+        if(dlx <= 0){
+            return ((vp * vpf) + ((vp/100)/1));
+        }
+        else{
+            return ((vp * vpf) + ((vp/100)/dlx));
+        }
     }
 
     public void test(){

@@ -15,6 +15,32 @@ public class PolicyHolder extends PASHelper {
     RatingEngine RatingEngObj;
 
     public void load(Policy policy){
+        int select = checkNumber("Is the Policy Holder same as policy owner? YES - 1 / NO - 2: ");
+        if(select == 1){
+            try {
+            String sql = "SELECT * FROM tbl_customersaccount WHERE account_number ='"+policy.getAccountNumber()+"'";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet resultSet = stmt.executeQuery();
+            resultSet.next();
+            String fname = resultSet.getString("account_fname");
+            String lname = resultSet.getString("account_lname");
+            String address = resultSet.getString("account_address");
+            this.fname = fname;
+            this.lname = lname;
+            this.address = address;
+            System.out.println("First Name: "+fname);
+            System.out.println("Last Name : "+lname);
+            System.out.println("Address   : "+address);
+            dob = checkDate("Enter date of birth: ");
+            System.out.print("Enter Driver's license number: ");
+            driverlicense = input.nextLine();
+            dateissuedlicense = checkDate("Enter Date on which driver's license was first issued(YYYY-MM-DD): ");  
+            } catch (Exception e) {
+                System.out.println("Invalid!");
+            }
+            
+        }
+        else if(select == 2){
             RatingEngObj = new RatingEngine();
             System.out.println("\nPolicy Holder Details\n");
             System.out.print("Enter First Name: ");
@@ -27,6 +53,11 @@ public class PolicyHolder extends PASHelper {
             System.out.print("Enter Driver's license number: ");
             driverlicense = input.nextLine();
             dateissuedlicense = checkDate("Enter Date on which driver's license was first issued(YYYY-MM-DD): ");
+        }
+        else{
+            System.out.println("Enter 1 or 2 Only!");
+            load(policy);
+        }
     }
 
     public void displayPolicyHolderDetails(int policynum){

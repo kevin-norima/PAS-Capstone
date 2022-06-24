@@ -61,7 +61,7 @@ public class Vehicle extends PASHelper {
             purchasePrice = checkPrice("Enter Purchase Price: ");
             System.out.print("Enter Color: ");
             color = input.nextLine();
-            RatingEngObj.getVehicleAge(year);
+            RatingEngObj.setVehicleAge(year);
             RatingEngObj.getVehiclePurchasePrice(purchasePrice);
             premiumCharge = Double.valueOf(df.format(RatingEngObj.calculatePremium()));
             System.out.println("Premium charged: "+premiumCharge);

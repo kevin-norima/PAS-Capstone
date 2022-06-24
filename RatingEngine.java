@@ -18,7 +18,7 @@ public class RatingEngine {
         this.dlx = Period.between(ph.getDateissuedlicense(), today).getYears(); // get exactly the years of date between the Issued license and current date
     }
 
-    public void getVehicleAge(int year){
+    public void setVehicleAge(int year){
         LocalDate today = LocalDate.now();
         int currentYear = today.getYear();
         int vehicleAge = currentYear - year;

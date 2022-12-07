@@ -58,7 +58,4 @@ public class RatingEngine {
         }
     }
 
-    public void test(){
-        System.out.println(vp+" "+vpf+" "+dlx);
-    }
 }
